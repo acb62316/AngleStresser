@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% set active_page = 'settings' %}
+{% block title %}Settings - AngleStresser{% endblock %}
+{% block content %}
+<div style="max-width:520px;">
+    <div class="card">
+        <div class="card-header">Account Settings</div>
+        <div class="card-body">
+            <form action="/settings" method="POST">
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-input" value="{{ username }}" disabled>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Current Plan</label>
+                    <input type="text" class="form-input" value="{{ userplan }}" disabled>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="settings-old-pw">Current Password</label>
+                    <input type="password" class="form-input" name="old_password" id="settings-old-pw" required placeholder="Enter current password">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="settings-new-pw">New Password</label>
+                    <input type="password" class="form-input" name="new_password" id="settings-new-pw" required placeholder="Enter new password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top:8px;">Update Password</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

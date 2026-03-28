@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign In - AngleStresser</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Sign In</h1>
+                <p>Welcome back to AngleStresser</p>
+            </div>
+            <div class="login-body">
+                {% if ErrorTitle %}
+                <div class="alert alert-danger">
+                    <strong>{{ ErrorTitle }}</strong> {{ ErrorMessage }}
+                </div>
+                {% endif %}
+                <form method="POST" action="/">
+                    <div class="form-group">
+                        <label class="form-label" for="login-username">Username</label>
+                        <i data-lucide="user" class="input-icon"></i>
+                        <input type="text" name="username" id="login-username" class="form-input has-icon" placeholder="Enter your username" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="login-password">Password</label>
+                        <i data-lucide="lock" class="input-icon"></i>
+                        <input type="password" name="password" id="login-password" class="form-input has-icon" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </form>
+            </div>
+            <div class="login-footer">
+                Don't have an account? <a href="/register">Create one</a>
+            </div>
+        </div>
+    </div>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

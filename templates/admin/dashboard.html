@@ -1,0 +1,73 @@
+{% extends "admin/base_admin.html" %}
+{% set active_page = 'admin' %}
+{% block title %}Admin Dashboard - AngleStresser{% endblock %}
+{% block content %}
+<div class="stat-grid">
+    <div class="stat-card">
+        <div class="stat-icon indigo"><i data-lucide="users"></i></div>
+        <div class="stat-info">
+            <div class="stat-label">Total Users</div>
+            <div class="stat-value">{{ user_count }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon sky"><i data-lucide="server"></i></div>
+        <div class="stat-info">
+            <div class="stat-label">Servers</div>
+            <div class="stat-value">{{ server_count }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon amber"><i data-lucide="megaphone"></i></div>
+        <div class="stat-info">
+            <div class="stat-label">Posts</div>
+            <div class="stat-value">{{ announcements|length }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon green"><i data-lucide="ticket"></i></div>
+        <div class="stat-info">
+            <div class="stat-label">Codes</div>
+            <div class="stat-value">{{ codes|length }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="grid-2">
+    <div class="card">
+        <div class="card-header">Recent Users</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr><th>Username</th><th>Plan</th><th>Joined</th></tr>
+                </thead>
+                <tbody>
+                    {% for u in users[:8] %}
+                    <tr>
+                        <td><strong>{{ u.userid }}</strong></td>
+                        <td><span class="badge badge-primary">{{ u.userplan }}</span></td>
+                        <td style="color:var(--text-muted);">{{ u.userdate }}</td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="3" class="empty-state">No users yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">Recent Announcements</div>
+        <div class="card-body">
+            {% for a in announcements[:5] %}
+            <div class="announcement-item">
+                <div class="announcement-title">{{ a.title }}</div>
+                <div class="announcement-text">{{ a.content[:100] }}{% if a.content|length > 100 %}...{% endif %}</div>
+                <div class="announcement-date">{{ a.created_at }}</div>
+            </div>
+            {% else %}
+            <div class="empty-state">No announcements yet.</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

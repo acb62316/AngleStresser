@@ -1,0 +1,55 @@
+{% extends "admin/base_admin.html" %}
+{% set active_page = 'codes' %}
+{% block title %}Manage Codes - Admin Panel{% endblock %}
+{% block content %}
+<div class="grid-5-7">
+    <div class="card">
+        <div class="card-header">Generate Code</div>
+        <div class="card-body">
+            <form method="POST" action="/admin/code/create">
+                <div class="form-group">
+                    <label class="form-label" for="code">Custom Code (Optional)</label>
+                    <input type="text" class="form-input" name="code" id="code" placeholder="Leave empty for random generation">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Plan Type</label>
+                    <select name="codeplan" class="form-select">
+                        <option value="Bronze">Bronze</option>
+                        <option value="Silver">Silver</option>
+                        <option value="Gold">Gold</option>
+                        <option value="Diamond">Diamond</option>
+                        <option value="Master">Master</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;"><i data-lucide="plus"></i> Generate Code</button>
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">Active Codes</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr><th>Code</th><th>Plan</th><th>Actions</th></tr>
+                </thead>
+                <tbody>
+                    {% for c in codes %}
+                    <tr>
+                        <td><div class="code-display">{{ c.code }}</div></td>
+                        <td><span class="badge badge-primary">{{ c.codeplan }}</span></td>
+                        <td style="width:100px;">
+                            <form method="POST" action="/admin/code/delete">
+                                <input type="hidden" name="code" value="{{ c.code }}">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this code?')"><i data-lucide="trash-2"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="3" class="empty-state">No active codes found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% set active_page = 'layer4' %}
+{% block title %}Layer 4 - AngleStresser{% endblock %}
+{% block content %}
+<div class="grid-5-7">
+    <div class="card">
+        <div class="card-header">Layer 4 Stress</div>
+        <div class="card-body">
+            <form method="POST">
+                <div class="form-group">
+                    <label class="form-label">Method</label>
+                    <select name="methods" class="form-select" size="1">
+                        <option value="udp">UDP</option>
+                        <option value="tcp">TCP</option>
+                        <option value="ldap">LDAP</option>
+                        <option value="ntp">NTP</option>
+                        <option value="ovh">OVH</option> #add more methods
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="targetIp">Host</label>
+                    <input class="form-input" name="host" placeholder="1.1.1.1" type="text" id="targetIp" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="targetPort">Port</label>
+                    <input class="form-input" name="port" placeholder="80" type="text" id="targetPort" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="duration">Attack Duration (Seconds)</label>
+                    <input class="form-input" name="duration" placeholder="300" type="number" id="duration" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;"><i data-lucide="zap"></i> Start
+                    Attack</button>
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">Attack Log</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Host</th>
+                        <th>Port</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if count %}
+                    {% for i in range(count) %}
+                    <tr>
+                        <td><span class="badge badge-primary">{{ l4_method[i] }}</span></td>
+                        <td>{{ l4_target[i] }}</td>
+                        <td>{{ l4_port[i] }}</td>
+                        <td>{{ l4_duration[i] }}s</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="empty-state">No recent attacks.</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

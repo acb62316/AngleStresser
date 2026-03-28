@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% set active_page = 'layer7' %}
+{% block title %}Layer 7 - AngleStresser{% endblock %}
+{% block content %}
+<div class="grid-5-7">
+    <div class="card">
+        <div class="card-header">Layer 7 Stress</div>
+        <div class="card-body">
+            <form method="POST">
+                <div class="form-group">
+                    <label class="form-label">Method</label>
+                    <select name="methods" class="form-select" size="1">
+                        <option value="pps">HTTP-SOCKET</option>
+                        <option value="bypass">HTTP-BYPASS</option>
+                        <option value="browser">BROWSER-BYPASS</option> #add more methods
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="targetUrl">Target Url</label>
+                    <input class="form-input" name="target" placeholder="https://example.com/" type="text"
+                        id="targetUrl" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="duration">Attack Duration (Seconds)</label>
+                    <input class="form-input" name="duration" placeholder="300" type="number" id="duration" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;"><i data-lucide="zap"></i> Start
+                    Attack</button>
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">Attack Log</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Target</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if count %}
+                    {% for i in range(count) %}
+                    <tr>
+                        <td><span class="badge badge-primary">{{ smethod[i] }}</span></td>
+                        <td>{{ starget[i] }}</td>
+                        <td>{{ sduration[i] }}s</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="3" class="empty-state">No recent attacks.</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

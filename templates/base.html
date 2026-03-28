@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}AngleStresser{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <a href="/dashboard">AngleStresser</a>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/dashboard" class="{% if active_page == 'dashboard' %}active{% endif %}"><i
+                                data-lucide="home"></i> Dashboard</a></li>
+                </ul>
+                <div class="nav-section">
+                    <div class="nav-section-title">Services</div>
+                    <ul>
+                        <li><a href="/layer4" class="{% if active_page == 'layer4' %}active{% endif %}"><i
+                                    data-lucide="shield"></i> Layer 4</a></li>
+                        <li><a href="/layer7" class="{% if active_page == 'layer7' %}active{% endif %}"><i
+                                    data-lucide="globe"></i> Layer 7</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">Account</div>
+                    <ul>
+                        <li><a href="/api" class="{% if active_page == 'api' %}active{% endif %}"><i
+                                    data-lucide="plug"></i> API</a></li>
+                        <li><a href="/plans" class="{% if active_page == 'plans' %}active{% endif %}"><i
+                                    data-lucide="credit-card"></i> Plans</a></li>
+                        <li><a href="/redeem" class="{% if active_page == 'redeem' %}active{% endif %}"><i
+                                    data-lucide="gift"></i> Redeem</a></li>
+                        <li><a href="/settings" class="{% if active_page == 'settings' %}active{% endif %}"><i
+                                    data-lucide="settings"></i> Settings</a></li>
+                    </ul>
+                </div>
+                {% if userplan == 'MASTER' %}
+                <div class="nav-section">
+                    <div class="nav-section-title">Admin</div>
+                    <ul>
+                        <li><a href="/admin"><i data-lucide="shield-check"></i> Admin Panel</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+                <div class="nav-section">
+                    <ul>
+                        <li><a href="/logout"><i data-lucide="log-out"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+        <div class="main-area">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="sidebar-toggle" onclick="toggleSidebar()"><i data-lucide="menu"></i></button>
+                    {% block topbar_left %}{% endblock %}
+                </div>
+                <div class="topbar-right">
+                    <div class="user-menu">
+                        <button class="user-menu-btn" onclick="this.parentElement.classList.toggle('open')">
+                            <i data-lucide="user"></i>
+                            {{ username }}
+                            <i data-lucide="chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="/settings"><i data-lucide="settings"></i> Settings</a>
+                            <a href="/logout"><i data-lucide="log-out"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <main class="content-area">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                <div
+                    class="alert {% if 'Error' in message or 'Cannot' in message %}alert-danger{% elif 'Warning' in message %}alert-warning{% else %}alert-success{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                {% block content %}{% endblock %}
+            </main>
+            <footer class="page-footer">&copy; 2026 AngleStresser</footer>
+        </div>
+    </div>
+    <script>
+        lucide.createIcons();
+        function toggleSidebar() { var s = document.getElementById('sidebar'), o = document.getElementById('sidebarOverlay'); s.classList.toggle('open'); o.classList.toggle('open') }
+        document.addEventListener('click', function (e) { var m = document.querySelectorAll('.user-menu'); m.forEach(function (el) { if (!el.contains(e.target)) el.classList.remove('open') }) });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

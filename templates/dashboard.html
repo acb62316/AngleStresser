@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% set active_page = 'dashboard' %}
+{% block title %}Dashboard - AngleStresser{% endblock %}
+{% block content %}
+<div class="stat-grid">
+    <div class="stat-card">
+        <div class="stat-icon indigo"><i data-lucide="user"></i></div>
+        <div class="stat-info">
+            <div class="stat-label">User</div>
+            <div class="stat-value">{{ username }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon amber"><i data-lucide="crown"></i></div>
+        <div class="stat-info">
+            <div class="stat-label">Plan</div>
+            <div class="stat-value">{{ userplan }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon green"><i data-lucide="zap"></i></div>
+        <div class="stat-info">
+            <div class="stat-label">Slots</div>
+            <div class="stat-value">{{ concurrent }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon sky"><i data-lucide="clock"></i></div>
+        <div class="stat-info">
+            <div class="stat-label">Expires</div>
+            <div class="stat-value" style="font-size:14px;">{{ expired or 'N/A' }}</div>
+        </div>
+    </div>
+</div>
+<div class="grid-7-5">
+    <div class="card">
+        <div class="card-header">Recent Attacks</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr><th>#</th><th>Target</th><th>Method</th><th>Duration</th></tr>
+                </thead>
+                <tbody>
+                    {% for i in range(count) %}
+                    <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ starget[i] }}</td>
+                        <td><span class="badge badge-primary">{{ smethod[i] }}</span></td>
+                        <td>{{ sduration[i] }}s</td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="4" class="empty-state">No recent attacks.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">Announcements</div>
+        <div class="card-body">
+            {% for a in announcements %}
+            <div class="announcement-item">
+                <div class="announcement-title">{{ a.title }}</div>
+                <div class="announcement-text">{{ a.content }}</div>
+                <div class="announcement-date">{{ a.created_at }}</div>
+            </div>
+            {% else %}
+            <div class="empty-state">No announcements yet.</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

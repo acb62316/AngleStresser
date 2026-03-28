@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% set active_page = 'plans' %}
+{% block title %}Plans - AngleStresser{% endblock %}
+{% block content %}
+<div class="plan-grid">
+    <div class="plan-card">
+        <div class="plan-header">
+            <div class="plan-name" style="color:var(--text-secondary);">Bronze</div>
+            <div class="plan-price">$25<span>/mo</span></div>
+        </div>
+        <div class="plan-features">
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 1200 sec boot time</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 1 Concurrent slot</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 30 Days duration</div>
+            <div class="plan-feature"><i data-lucide="x" class="x-icon"></i> No API Access</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 24/7 Support</div>
+        </div>
+        <div class="plan-footer">
+            <a href="https://t.me/daonlyspark" target="_blank" class="btn btn-ghost">Buy Bronze</a>
+        </div>
+    </div>
+
+    <div class="plan-card">
+        <div class="plan-header">
+            <div class="plan-name" style="color:var(--text-secondary);">Silver</div>
+            <div class="plan-price">$50<span>/mo</span></div>
+        </div>
+        <div class="plan-features">
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 1500 sec boot time</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 2 Concurrent slots</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 30 Days duration</div>
+            <div class="plan-feature"><i data-lucide="x" class="x-icon"></i> No API Access</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 24/7 Support</div>
+        </div>
+        <div class="plan-footer">
+            <a href="https://t.me/daonlyspark" target="_blank" class="btn btn-ghost">Buy Silver</a>
+        </div>
+    </div>
+
+    <div class="plan-card featured">
+        <div class="plan-header">
+            <div class="plan-name" style="color:var(--warning);">Gold</div>
+            <div class="plan-price">$70<span>/mo</span></div>
+        </div>
+        <div class="plan-features">
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 1800 sec boot time</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 3 Concurrent slots</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 30 Days duration</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> API Access included</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 24/7 Support</div>
+        </div>
+        <div class="plan-footer">
+            <a href="https://t.me/daonlyspark" target="_blank" class="btn btn-primary">Buy Gold</a>
+        </div>
+    </div>
+
+    <div class="plan-card">
+        <div class="plan-header">
+            <div class="plan-name" style="color:var(--info);">Diamond</div>
+            <div class="plan-price">$100<span>/mo</span></div>
+        </div>
+        <div class="plan-features">
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 2400 sec boot time</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 5 Concurrent slots</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 30 Days duration</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> API Access included</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 24/7 Support</div>
+        </div>
+        <div class="plan-footer">
+            <a href="https://t.me/daonlyspark" target="_blank" class="btn btn-ghost">Buy Diamond</a>
+        </div>
+    </div>
+
+    <div class="plan-card">
+        <div class="plan-header">
+            <div class="plan-name" style="color:var(--danger);">Master</div>
+            <div class="plan-price">$400<span>/mo</span></div>
+        </div>
+        <div class="plan-features">
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 3600 sec boot time</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 20 Concurrent slots</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 30 Days duration</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> API Access included</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 24/7 Support</div>
+        </div>
+        <div class="plan-footer">
+            <a href="https://t.me/daonlyspark" target="_blank" class="btn btn-ghost">Buy Master</a>
+        </div>
+    </div>
+
+    <div class="plan-card">
+        <div class="plan-header">
+            <div class="plan-name" style="color:#a855f7;">Custom</div>
+            <div class="plan-price" style="font-size:22px;padding:6px 0;">Contact Us</div>
+        </div>
+        <div class="plan-features">
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> Custom boot time</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> Custom Concurrents</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> 30 Days duration</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> API Access included</div>
+            <div class="plan-feature"><i data-lucide="check" class="check"></i> Priority Support</div>
+        </div>
+        <div class="plan-footer">
+            <a href="https://t.me/daonlyspark" target="_blank" class="btn btn-ghost">Contact Sales</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

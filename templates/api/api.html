@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% set active_page = 'api' %}
+{% block title %}API Manager - AngleStresser{% endblock %}
+{% block content %}
+<div class="card" style="max-width:800px;">
+    <div class="card-header">API Access Documentation</div>
+    <div class="card-body">
+        <div class="alert alert-info border-0" style="background:var(--info-bg);">
+            <i data-lucide="info"></i>
+            <div>API access is only available to <strong>Gold, Diamond, and Master</strong> plan members. Before making requests, ensure you have an active plan that supports API access.</div>
+        </div>
+        
+        <div style="margin-bottom:24px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+            <form method="POST" action="/api/generate" style="margin:0;">
+                <button type="submit" class="btn btn-primary"><i data-lucide="key"></i> Generate Key</button>
+            </form>
+            {% if apikey %}
+            <div style="font-size:14px;"><strong>Your API Key:</strong> <span class="code-display" style="user-select:all;">{{ apikey }}</span></div>
+            {% endif %}
+        </div>
+
+        <h4 style="font-size:16px;font-weight:600;margin:24px 0 12px;color:var(--text);">Endpoint</h4>
+        <div class="code-display" style="padding:12px;margin-bottom:24px;">
+            {{ request.host_url }}api/attack
+        </div>
+        
+        <h4 style="font-size:16px;font-weight:600;margin:24px 0 12px;color:var(--text);">Parameters</h4>
+        <div class="table-responsive" style="margin-bottom:24px;">
+            <table>
+                <thead>
+                    <tr><th>Parameter</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>key</code></td><td>Your account API key</td></tr>
+                    <tr><td><code>host</code></td><td>Target IP or URL</td></tr>
+                    <tr><td><code>port</code></td><td>Target port (for Layer 4)</td></tr>
+                    <tr><td><code>time</code></td><td>Attack duration in seconds</td></tr>
+                    <tr><td><code>method</code></td><td>Attack method (e.g., bypass, udp, tcp)</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <h4 style="font-size:16px;font-weight:600;margin:24px 0 12px;color:var(--text);">Example Request</h4>
+        <div class="code-display" style="padding:12px;white-space:pre-wrap;">{{ request.host_url }}api/attack?key={% if apikey %}{{ apikey }}{% else %}YOUR_API_KEY{% endif %}&host=[host]&port=[port]&time=[time]&method=[method]</div>
+    </div>
+</div>
+{% endblock %}

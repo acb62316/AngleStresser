@@ -1,0 +1,49 @@
+{% extends "admin/base_admin.html" %}
+{% set active_page = 'announcements' %}
+{% block title %}Manage Announcements - Admin Panel{% endblock %}
+{% block content %}
+<div class="grid-5-7">
+    <div class="card">
+        <div class="card-header">Create Announcement</div>
+        <div class="card-body">
+            <form method="POST" action="/admin/announcement/add">
+                <div class="form-group">
+                    <label class="form-label" for="title">Title</label>
+                    <input type="text" class="form-input" name="title" id="title" required placeholder="Announcement Title">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="content">Content</label>
+                    <textarea class="form-textarea" name="content" id="content" required placeholder="Write your announcement here..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;"><i data-lucide="plus"></i> Post Announcement</button>
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">Existing Announcements</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr><th>Title</th><th>Date</th><th>Actions</th></tr>
+                </thead>
+                <tbody>
+                    {% for a in announcements %}
+                    <tr>
+                        <td><strong>{{ a.title }}</strong></td>
+                        <td>{{ a.created_at }}</td>
+                        <td style="width:100px;">
+                            <form method="POST" action="/admin/announcement/delete">
+                                <input type="hidden" name="id" value="{{ a.id }}">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this announcement?')"><i data-lucide="trash-2"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="3" class="empty-state">No announcements found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

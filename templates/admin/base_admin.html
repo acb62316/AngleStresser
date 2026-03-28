@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Admin - AngleStresser{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <a href="/admin">AngleStresser</a>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/admin" class="{% if active_page == 'admin' %}active{% endif %}"><i
+                                data-lucide="home"></i> Admin Panel</a></li>
+                    <li><a href="/admin/users" class="{% if active_page == 'users' %}active{% endif %}"><i
+                                data-lucide="users"></i> Manage Users</a></li>
+                    <li><a href="/admin/announcements"
+                            class="{% if active_page == 'announcements' %}active{% endif %}"><i
+                                data-lucide="megaphone"></i> Announcements</a></li>
+                    <li><a href="/admin/codes" class="{% if active_page == 'codes' %}active{% endif %}"><i
+                                data-lucide="ticket"></i> Redeem Codes</a></li>
+                </ul>
+                <div class="nav-section">
+                    <ul>
+                        <li><a href="/dashboard"><i data-lucide="arrow-left"></i> User Dashboard</a></li>
+                        <li><a href="/logout"><i data-lucide="log-out"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+        <div class="main-area">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="sidebar-toggle" onclick="toggleSidebar()"><i data-lucide="menu"></i></button>
+                </div>
+                <div class="topbar-right">
+                    <span style="font-size:13px;color:var(--text-muted);">Logged in as <strong>{{ username
+                            }}</strong></span>
+                </div>
+            </header>
+            <main class="content-area">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                <div
+                    class="alert {% if 'Error' in message or 'Cannot' in message or 'already' in message or 'required' in message %}alert-danger{% else %}alert-success{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                {% block content %}{% endblock %}
+            </main>
+            <footer class="page-footer">&copy; 2026 AngleStresser Admin</footer>
+        </div>
+    </div>
+    <script>
+        lucide.createIcons();
+        function toggleSidebar() { var s = document.getElementById('sidebar'), o = document.getElementById('sidebarOverlay'); s.classList.toggle('open'); o.classList.toggle('open') }
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

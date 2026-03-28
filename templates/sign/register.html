@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign Up - AngleStresser</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Create Account</h1>
+                <p>Get started with AngleStresser</p>
+            </div>
+            <div class="login-body">
+                {% if ErrorTitle %}
+                <div class="alert {% if 'NOTICE' in ErrorTitle %}alert-success{% else %}alert-danger{% endif %}">
+                    <strong>{{ ErrorTitle }}</strong> {{ ErrorMessage }}
+                </div>
+                {% endif %}
+                <form method="POST" action="/register">
+                    <div class="form-group">
+                        <label class="form-label" for="reg-username">Username</label>
+                        <i data-lucide="user" class="input-icon"></i>
+                        <input type="text" name="username" id="reg-username" class="form-input has-icon" placeholder="Choose a username" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="reg-password">Password</label>
+                        <i data-lucide="lock" class="input-icon"></i>
+                        <input type="password" name="password" id="reg-password" class="form-input has-icon" placeholder="Create a password" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="reg-repassword">Confirm Password</label>
+                        <i data-lucide="lock" class="input-icon"></i>
+                        <input type="password" name="repassword" id="reg-repassword" class="form-input has-icon" placeholder="Re-enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                </form>
+            </div>
+            <div class="login-footer">
+                Already have an account? <a href="/">Sign in</a>
+            </div>
+        </div>
+    </div>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% set active_page = 'redeem' %}
+{% block title %}Redeem - AngleStresser{% endblock %}
+{% block content %}
+<div class="grid-5-7">
+    <div class="card">
+        <div class="card-header">Redeem Code</div>
+        <div class="card-body">
+            <form method="POST" action="/redeem">
+                <div class="form-group">
+                    <label class="form-label" for="code">Enter Code</label>
+                    <input class="form-input" name="code" placeholder="XXXX-XXXX-XXXX-XXXX" type="text" id="code" required>
+                </div>
+                <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">
+                    Having trouble redeeming? <a href="/contact">Contact Support</a>
+                </p>
+                <button type="submit" class="btn btn-primary" style="width:100%;"><i data-lucide="gift"></i> Redeem Gift</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">FAQ</div>
+        <div class="card-body">
+            <div class="faq-item">
+                <div class="faq-question">How do I redeem it?</div>
+                <div class="faq-answer">Simply enter your code in the text box on the left and click redeem. The associated plan will be automatically assigned to your account.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">What do I receive?</div>
+                <div class="faq-answer">Gift codes correspond to specific plans. Once redeemed, your account will be upgraded immediately as if you had purchased the plan directly.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Where can I buy a code?</div>
+                <div class="faq-answer">You can purchase codes through our <a href="/plans">Plans page</a> or directly from our authorized resellers.</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

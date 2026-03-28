@@ -1,0 +1,103 @@
+{% extends "admin/base_admin.html" %}
+{% set active_page = 'users' %}
+{% block title %}Manage Users - Admin Panel{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        All Users ({{ users|length }})
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Plan</th>
+                    <th>Concurrent</th>
+                    <th>Boottime</th>
+                    <th>Expires</th>
+                    <th>Joined</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td><strong>{{ u.userid }}</strong></td>
+                    <td><span class="badge badge-primary">{{ u.userplan }}</span></td>
+                    <td>{{ u.concurrent }}</td>
+                    <td>{{ u.boottime }}s</td>
+                    <td style="font-size:12px;">{{ u.expired or 'N/A' }}</td>
+                    <td style="font-size:12px;color:var(--text-muted);">{{ u.userdate }}</td>
+                    <td>
+                        <div class="inline-actions">
+                            <button class="btn btn-sm btn-ghost" onclick="openEditModal('edit-{{ loop.index }}')">Edit</button>
+                            {% if u.userid != 'admin' %}
+                            <form method="POST" action="/admin/user/resetpw" style="display:inline;">
+                                <input type="hidden" name="userid" value="{{ u.userid }}">
+                                <input type="hidden" name="newpw" value="1234">
+                                <button type="submit" class="btn btn-sm btn-warning" onclick="return confirm('Reset password to 1234?')">Reset PW</button>
+                            </form>
+                            <form method="POST" action="/admin/user/delete" style="display:inline;">
+                                <input type="hidden" name="userid" value="{{ u.userid }}">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete {{ u.userid }}?')">Delete</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="7" class="empty-state">No users found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% for u in users %}
+<div class="modal-backdrop" id="backdrop-edit-{{ loop.index }}" onclick="closeEditModal('edit-{{ loop.index }}')"></div>
+<div class="modal-dialog" id="edit-{{ loop.index }}">
+    <div class="modal-header">
+        <h3>Edit User: {{ u.userid }}</h3>
+        <button type="button" class="modal-close" onclick="closeEditModal('edit-{{ loop.index }}')"><i data-lucide="x"></i></button>
+    </div>
+    <form method="POST" action="/admin/user/edit">
+        <div class="modal-body">
+            <input type="hidden" name="userid" value="{{ u.userid }}">
+            <div class="form-group">
+                <label class="form-label">Plan</label>
+                <select name="userplan" class="form-select">
+                    {% for p in ['FREE', 'Bronze', 'Silver', 'Gold', 'Diamond', 'Master', 'MASTER'] %}
+                    <option value="{{ p }}" {% if u.userplan == p %}selected{% endif %}>{{ p }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Concurrent</label>
+                <input type="number" name="concurrent" class="form-input" value="{{ u.concurrent }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Boottime (seconds)</label>
+                <input type="number" name="boottime" class="form-input" value="{{ u.boottime }}">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-ghost" onclick="closeEditModal('edit-{{ loop.index }}')">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+    </form>
+</div>
+{% endfor %}
+
+{% endblock %}
+{% block scripts %}
+<script>
+function openEditModal(id) {
+    document.getElementById(id).classList.add('show');
+    document.getElementById('backdrop-' + id).classList.add('show');
+}
+function closeEditModal(id) {
+    document.getElementById(id).classList.remove('show');
+    document.getElementById('backdrop-' + id).classList.remove('show');
+}
+</script>
+{% endblock %}
